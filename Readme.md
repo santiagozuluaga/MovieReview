@@ -1,7 +1,7 @@
 # MovieReview
 
 
-## Front setup
+## Front-end setup
 ```
 cd Front && npm install
 ```
@@ -16,7 +16,7 @@ npm run serve
 npm run build
 ```
 
-## Back setup
+## Back-end setup
 ```
 
 ```
