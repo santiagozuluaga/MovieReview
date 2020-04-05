@@ -15,7 +15,6 @@ class Serie(models.Model):
     scoreserie = models.IntegerField()
 
 class Comment(models.Model):
-    #datecomment =
     likescomment = models.IntegerField()
     reportcomment = models.IntegerField()
     contentcomment = models.CharField(max_length=300)
