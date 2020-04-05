@@ -1,27 +1,21 @@
 <template>
   <div>
-    <div class="container-info-movie info-movie">  
-      <MovieComponent v-bind:Id="IdMovie" Type="Movie"/>
-    </div>
+    <MovieComponent v-bind:Id="IdMovie" Type="Movie"/>
 
-    <div>
-      <b-container class="container-info-movie">
-        <b-row class="justify-content-center">
-          <b-col lg="10">
-            <b-embed
-              type="iframe"
-              aspect="16by9"
-              v-bind:src="UrlVideo+KeyVideos[0].key"
-              allowfullscreen>
-            </b-embed>
-          </b-col>
-        </b-row>
-      </b-container>  
-    </div>
+    <b-container class="container-info-movie">
+      <b-row class="justify-content-center">
+        <b-col lg="12">
+          <b-embed
+            type="iframe"
+            aspect="16by9"
+            v-bind:src="UrlVideo+KeyVideos[0].key"
+            allowfullscreen>
+          </b-embed>
+        </b-col>
+      </b-row>
+    </b-container>  
 
-    <div>
-      <Comments />
-    </div>
+    <Comments />
   </div>
 </template>
 
@@ -60,11 +54,4 @@ export default {
 </script>
 
 <style>
-.info-movie{
-  background: #dc3545; 
-}
-
-.container-info-movie{
-  margin-top: 40px;
-}
 </style>

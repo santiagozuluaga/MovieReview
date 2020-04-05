@@ -1,86 +1,88 @@
 <template>
-    <b-container class="container-info"> 
-        <b-row>
-            <b-col class="text-center" lg="4">
-            <div>
-                <b-img class="image-ms" rounded width="300" v-bind:src="baseUrl+ContentComponent.poster_path" alt=""></b-img>
-            </div>
-            <div class="calification-ms">
-                <h4 class="text-inf-ms">¿Ya la viste? Puntuala</h4>
-                <div>
-                <b-icon 
-                    @mouseover="mouseover('star1')" 
-                    @mouseleave="mouseleave('star1')" 
-                    @click="changeStar('star1')"
-                    font-scale="2" 
-                    class="star-ms" 
-                    variant="light"
-                    v-bind:icon="stars.pos1">
-                </b-icon>
-                <b-icon 
-                    @mouseover="mouseover('star2')" 
-                    @mouseleave="mouseleave('star2')" 
-                    @click="changeStar('star2')"
-                    font-scale="2" 
-                    class="star-ms" 
-                    variant="light"
-                    v-bind:icon="stars.pos2">
-                </b-icon>
-                <b-icon 
-                    @mouseover="mouseover('star3')" 
-                    @mouseleave="mouseleave('star3')" 
-                    @click="changeStar('star3')"
-                    font-scale="2" 
-                    class="star-ms" 
-                    variant="light"
-                    v-bind:icon="stars.pos3">
-                </b-icon>
-                <b-icon 
-                    @mouseover="mouseover('star4')" 
-                    @mouseleave="mouseleave('star4')" 
-                    @click="changeStar('star4')"
-                    font-scale="2" 
-                    class="star-ms" 
-                    variant="light"
-                    v-bind:icon="stars.pos4">
-                </b-icon>
-                <b-icon 
-                    @mouseover="mouseover('star5')" 
-                    @mouseleave="mouseleave('star5')" 
-                    @click="changeStar('star5')"
-                    font-scale="2" 
-                    class="star-ms" 
-                    variant="light"
-                    v-bind:icon="stars.pos5">
-                </b-icon>
-                </div>
-            </div>
-            </b-col>
-            <b-col>
-            <h3 v-if="Type == 'Movie'" class="title-ms text-info-ms"><strong>{{ContentComponent.title}}</strong></h3>
-            <h3 v-if="Type == 'Serie'" class="title-ms text-info-ms"><strong>{{ContentComponent.original_name}}</strong></h3>
-            <div>
-                <h4 class="text-info-ms"><strong>Sinopsis:</strong></h4>
-                <p class="text-info-ms">{{ContentComponent.overview}}</p>
-            </div>
-            <div v-if="Type == 'Serie'">
-                <p class="text-info-ms"><strong>Fecha de estreno: </strong> {{ContentComponent.first_air_date}}</p>
-                <p class="text-info-ms"><strong>Numero de temporadas: </strong>{{ContentComponent.number_of_seasons}}</p>
-                <p class="text-info-ms"><strong>Numero de episodios: </strong> {{ContentComponent.number_of_episodes}}</p>
-                <h4 class="text-info-ms"><strong>Generos:</strong></h4>
-            </div>
-            <div v-if="Type == 'Movie'">
-                <p class="text-info-ms"><strong>Fecha de estreno: </strong> {{ContentComponent.release_date}}</p>
-                <p class="text-info-ms"><strong>Título original: </strong> {{ContentComponent.original_title}}</p>
-                <p class="text-info-ms"><strong>Duración: </strong>{{ContentComponent.runtime}} minutos</p>
-                <h4 class="text-info-ms"><strong>Generos:</strong></h4>
-            </div>
-            <div class="">
-                <b-button variant="dark" to="/" class="text-info-ms button-ms" v-bind:key="genre.id" v-for="genre in ContentComponent.genres">{{genre.name}}</b-button>
-            </div>
-            </b-col>
-        </b-row>
-    </b-container>
+    <div class="container-info-movie info-movie">  
+        <b-container class="container-info"> 
+            <b-row>
+                <b-col class="text-center" lg="4">
+                    <div>
+                        <b-img class="image-ms" rounded width="300" v-bind:src="baseUrl+ContentComponent.poster_path" alt=""></b-img>
+                    </div>
+                    <div class="calification-ms">
+                        <h4 class="text-inf-ms">¿Ya la viste? Puntuala</h4>
+                        <div>
+                        <b-icon 
+                            @mouseover="mouseover('star1')" 
+                            @mouseleave="mouseleave('star1')" 
+                            @click="changeStar('star1')"
+                            font-scale="2" 
+                            class="star-ms" 
+                            variant="light"
+                            v-bind:icon="stars.pos1">
+                        </b-icon>
+                        <b-icon 
+                            @mouseover="mouseover('star2')" 
+                            @mouseleave="mouseleave('star2')" 
+                            @click="changeStar('star2')"
+                            font-scale="2" 
+                            class="star-ms" 
+                            variant="light"
+                            v-bind:icon="stars.pos2">
+                        </b-icon>
+                        <b-icon 
+                            @mouseover="mouseover('star3')" 
+                            @mouseleave="mouseleave('star3')" 
+                            @click="changeStar('star3')"
+                            font-scale="2" 
+                            class="star-ms" 
+                            variant="light"
+                            v-bind:icon="stars.pos3">
+                        </b-icon>
+                        <b-icon 
+                            @mouseover="mouseover('star4')" 
+                            @mouseleave="mouseleave('star4')" 
+                            @click="changeStar('star4')"
+                            font-scale="2" 
+                            class="star-ms" 
+                            variant="light"
+                            v-bind:icon="stars.pos4">
+                        </b-icon>
+                        <b-icon 
+                            @mouseover="mouseover('star5')" 
+                            @mouseleave="mouseleave('star5')" 
+                            @click="changeStar('star5')"
+                            font-scale="2" 
+                            class="star-ms" 
+                            variant="light"
+                            v-bind:icon="stars.pos5">
+                        </b-icon>
+                        </div>
+                    </div>
+                </b-col>
+                <b-col>
+                    <h3 v-if="Type == 'Movie'" class="title-ms text-info-ms"><strong>{{ContentComponent.title}}</strong></h3>
+                    <h3 v-if="Type == 'Serie'" class="title-ms text-info-ms"><strong>{{ContentComponent.original_name}}</strong></h3>
+                    <div>
+                        <h4 class="text-info-ms"><strong>Sinopsis:</strong></h4>
+                        <p class="text-info-ms">{{ContentComponent.overview}}</p>
+                    </div>
+                    <div v-if="Type == 'Serie'">
+                        <p class="text-info-ms"><strong>Fecha de estreno: </strong> {{ContentComponent.first_air_date}}</p>
+                        <p class="text-info-ms"><strong>Numero de temporadas: </strong>{{ContentComponent.number_of_seasons}}</p>
+                        <p class="text-info-ms"><strong>Numero de episodios: </strong> {{ContentComponent.number_of_episodes}}</p>
+                        <h4 class="text-info-ms"><strong>Generos:</strong></h4>
+                    </div>
+                    <div v-if="Type == 'Movie'">
+                        <p class="text-info-ms"><strong>Fecha de estreno: </strong> {{ContentComponent.release_date}}</p>
+                        <p class="text-info-ms"><strong>Título original: </strong> {{ContentComponent.original_title}}</p>
+                        <p class="text-info-ms"><strong>Duración: </strong>{{ContentComponent.runtime}} minutos</p>
+                        <h4 class="text-info-ms"><strong>Generos:</strong></h4>
+                    </div>
+                    <div>
+                        <b-button variant="dark" v-on:click="seeCategories(genre.id)" class="text-info-ms button-ms" v-bind:key="genre.id" v-for="genre in ContentComponent.genres">{{genre.name}}</b-button>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
+    </div>
 </template>
 
 <script>
@@ -219,12 +221,24 @@ export default {
             else if(id == "star5"){
                 this.clickStars.pos5 = true;
             }
+        },
+        seeCategories(id){
+            var url = "/allmovies/category=" + id + "/year=null"
+            this.$router.push(url);
         }
     }
 }
 </script>
 
 <style>
+.info-movie{
+  background: #dc3545; 
+}
+
+.container-info-movie{
+  margin-bottom: 40px;
+}
+
 .container-info{
   padding-top: 40px;
   padding-bottom: 40px;

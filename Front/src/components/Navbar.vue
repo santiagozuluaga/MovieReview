@@ -33,11 +33,13 @@
 
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
+            <!--
             <b-nav-item-dropdown class="button-nav" text="Idioma">
                 <b-dropdown-item href="#">Español</b-dropdown-item>
                 <b-dropdown-item href="#">English</b-dropdown-item>
                 <b-dropdown-item href="#">Français</b-dropdown-item>
             </b-nav-item-dropdown>
+            -->
             <b-button v-on:click="openModal('signin')" class="font-nav button-nav" variant="danger">Iniciar sesión</b-button>
             <b-button v-on:click="openModal('signup')" class="font-nav button-nav" variant="danger">Crear cuenta</b-button>
           </b-navbar-nav>
