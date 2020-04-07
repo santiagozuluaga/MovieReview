@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <!--
+
     <CardCarousel />
-    -->
+
     <b-container class="container-news">
       <h3>Últimas películas</h3>
       <b-row>

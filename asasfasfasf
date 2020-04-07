@@ -1,0 +1,44 @@
+-PODEROSISIMA REUNION MOVIEREVIEW - ORDEN DEL DIA
+
+4189791286
+762804
+1. Como manejar las rutas del servidor?
+2. Terminar la base de datos - dos aplicaciones
+	- Administrador 
+	- Usuario 
+3. Hacer vista del administrador - Front
+
+ADMIN
+	-EMAIL
+	-PERMISINFORME
+	-PERMISOUSUARIOS
+	-PERMISOPELICULAS
+	
+USER
+	-USERNAME
+	-EMAIL ID
+	-PASSWORD
+	-STATE
+	-TYPE 
+		1 - ADMIN
+		0 - USER
+
+
+
+RUTAS
+-USUARIO
+	-SIGNIN
+		-EMAIL
+		-PASSWORD
+	-SIGNUP
+		-USERNAME
+		-EMAIL
+		-PASSWORD
+	-FAVORITE	
+
+
+
+- https://www.youtube.com/watch?v=tUqUdu0Sjyc
+-- https://www.youtube.com/watch?v=xv_bwpA_aEA&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO
+
+

@@ -4,7 +4,7 @@
             <b-row>
                 <b-col class="text-center" lg="4">
                     <div>
-                        <b-img class="image-ms" rounded width="300" v-bind:src="baseUrl+ContentComponent.poster_path" alt=""></b-img>
+                        <b-img class="image-ms" rounded width="280" v-bind:src="baseUrl+ContentComponent.poster_path" alt=""></b-img>
                     </div>
                     <div class="calification-ms">
                         <h4 class="text-inf-ms">¿Ya la viste? Puntuala</h4>
