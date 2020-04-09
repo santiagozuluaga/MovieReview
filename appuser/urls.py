@@ -1,11 +1,13 @@
 from rest_framework import routers
-from .views import UserViewSet, MovieViewSet, SerieViewSet, CommentViewSet
-
-router = routers.SimpleRouter()
-router.register(r'user',UserViewSet)
-router.register(r'movie',MovieViewSet)
-router.register(r'serie',SerieViewSet)
-router.register(r'comment',CommentViewSet)
+#from .views import UserViewSet, MovieViewSet, SerieViewSet, CommentViewSet
+from django.urls import path, include
+from . import views
 
 
-urlpatterns = router.urls
+
+urlpatterns = [
+    
+    path('signup/',views.signup),
+    path('login/',views.login),
+  
+ ]
