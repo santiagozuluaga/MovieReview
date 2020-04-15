@@ -2,26 +2,39 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    email = models.CharField(max_length=50, primary_key=True)
-    nickname = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-
+   email = models.CharField(max_length=60, primary_key=True)
+   nickname = models.CharField(max_length=50)
+   password = models.TextField()
+   state = models.BooleanField()
+   typeuser = models.BooleanField()
+ 
+class Admin(models.Model):
+   emailuser = models.ForeignKey(User, on_delete=models.CASCADE)
+   permisoinforme = models.BooleanField()
+   permisousuarios = models.BooleanField()
+ 
 class Movie(models.Model):
-    idmovie = models.IntegerField(primary_key=True)
-    scoremovie = models.IntegerField()
-
-class Comment(models.Model):
-    idcomment = models.CharField(max_length=50, primary_key=True)
-    datecomment = models.DateField()
-    reactcomment = models.CharField(max_length=50)
-    reportcomment = models.CharField(max_length=50)
-    messagecomment = models.CharField(max_length=50)
-
-class Comment_user(models.Model):
-    idcomment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    emailuser = models.ForeignKey(User, on_delete=models.CASCADE)
-
-class Comment_movie(models.Model):
-    idcomment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    idmovie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-  
+   idmovie = models.IntegerField(primary_key=True)
+   scoremovie = models.FloatField()
+ 
+class Serie(models.Model):
+   idserie = models.IntegerField(primary_key=True)
+   scoreserie = models.FloatField()
+ 
+class CommentMovie(models.Model):
+   idmovie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+   emailuser = models.ForeignKey(User, on_delete=models.CASCADE)
+   datecomment = models.DateField()
+   likescomment = models.IntegerField()
+   reportcomment = models.IntegerField()
+   contentcomment = models.CharField(max_length=500)
+ 
+class CommentSerie(models.Model):
+   idserie = models.ForeignKey(Serie, on_delete=models.CASCADE)
+   emailuser = models.ForeignKey(User, on_delete=models.CASCADE)
+   datecomment = models.DateField()
+   likescomment = models.IntegerField()
+   reportcomment = models.IntegerField()
+   contentcomment = models.CharField(max_length=500)
+ 
+ 

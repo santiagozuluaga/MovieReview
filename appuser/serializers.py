@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Movie, Comment, Comment_user, Comment_movie
+from .models import User, Movie, Admin, Serie, CommentMovie, CommentSerie
 
 ##USER SERIALIZER
 class UserSerializer(serializers.ModelSerializer):
@@ -7,27 +7,35 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+class AdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Admin
+        fields = '__all__'
+
+
 ##MOVIE SERIALIZER
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
 
-##Comment SERIALIZER
-class CommentSerializer(serializers.ModelSerializer):
+class SerieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
+        model = Serie
+        fields = '__all__'
+
+
+##Comment SERIALIZER
+class CommentSerieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentSerie
         fields = '__all__'
 
 #Comment_user
-class CommentuserSerializer(serializers.ModelSerializer):
+class CommentMovieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment_user
+        model = CommentMovie
         fields = '__all__'
 
 ##Comment_movie SERIALIZER
 
-class CommentmovieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment_movie
-        fields = '__all__'

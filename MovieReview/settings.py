@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'MovieReview.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
+        'NAME': 'moviereview5',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
