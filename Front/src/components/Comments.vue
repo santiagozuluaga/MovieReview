@@ -11,7 +11,6 @@
           maxlength="500">
         </b-form-textarea>
         <b-button class="button-newcomment" variant="danger">Comentar</b-button>
-        <b-button class="button-newcomment" variant="dark">Cancelar</b-button>
       </b-col>
       <b-col cols="12">
         <h3>{{comments.length}} comentarios</h3>
@@ -20,7 +19,7 @@
         <div>
           <div class="profile-comment">
             <div>
-              <img src="@/assets/user.png" width="32" alt="">
+              <img src="@/assets/user(1).png" width="32" alt="">
             </div>
             <div>
               <p><strong>{{comment.user}}</strong></p>

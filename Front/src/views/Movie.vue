@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="movie">
     <MovieComponent v-bind:Id="IdMovie" Type="Movie"/>
 
+    <!--
     <b-container class="container-info-movie">
       <b-row class="justify-content-center">
         <b-col lg="12">
@@ -14,7 +15,8 @@
         </b-col>
       </b-row>
     </b-container>  
-
+    -->
+    
     <Comments />
   </div>
 </template>
@@ -38,7 +40,9 @@ export default {
   },
   created() {
 
+    this.$store.commit('updateWindow', 'dark')
     this.IdMovie = this.$route.params.id;
+    
     let vue = this;
     axios.get('https://api.themoviedb.org/3/movie/'+ this.$route.params.id +'/videos?api_key=eac810b6ade616ce25d01396797173f0')
     .then(function(response) {
@@ -54,4 +58,7 @@ export default {
 </script>
 
 <style>
+.movie{
+  margin-top: 10vh;
+}
 </style>

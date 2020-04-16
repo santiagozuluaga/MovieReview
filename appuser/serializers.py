@@ -1,10 +1,17 @@
 from rest_framework import serializers
-from .models import User, Movie, Serie, Comment
+from .models import User, Admin, Movie, Serie, CommentMovie, CommentSerie
+
 
 ##USER SERIALIZER
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+##ADMIN SERIALIZER
+class AdminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Admin
         fields = '__all__'
 
 ##MOVIE SERIALIZER
@@ -20,7 +27,13 @@ class SerieSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 ##Comment SERIALIZER
-class CommentSerializer(serializers.ModelSerializer):
+class CommentMovieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
+        model = CommentMovie
+        fields = '__all__'
+
+##Comment SERIALIZER
+class CommentSerieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentSerie
         fields = '__all__'
