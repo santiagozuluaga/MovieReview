@@ -1,10 +1,10 @@
 <template>
-    <div class="container-info-movie info-movie">  
+    <div class="container-info-movie info-movie text-white">
         <b-container class="container-info"> 
             <b-row>
                 <b-col class="text-center" lg="4">
                     <div>
-                        <b-img class="image-ms" rounded width="300" v-bind:src="baseUrl+ContentComponent.poster_path" alt=""></b-img>
+                        <b-img class="image-ms" rounded width="280" v-bind:src="posterUrl+ContentComponent.poster_path" alt=""></b-img>
                     </div>
                     <div class="calification-ms">
                         <h4 class="text-inf-ms">¿Ya la viste? Puntuala</h4>
@@ -59,7 +59,7 @@
                 </b-col>
                 <b-col>
                     <h3 v-if="Type == 'Movie'" class="title-ms text-info-ms"><strong>{{ContentComponent.title}}</strong></h3>
-                    <h3 v-if="Type == 'Serie'" class="title-ms text-info-ms"><strong>{{ContentComponent.original_name}}</strong></h3>
+                    <h3 v-if="Type == 'Serie'" class="title-ms text-info-ms"><strong>{{ContentComponent.name}}</strong></h3>
                     <div>
                         <h4 class="text-info-ms"><strong>Sinopsis:</strong></h4>
                         <p class="text-info-ms">{{ContentComponent.overview}}</p>
@@ -93,7 +93,7 @@ export default {
     data () {
         return {
             ContentComponent: {},
-            baseUrl: "https://image.tmdb.org/t/p/w300/",
+            posterUrl: "https://image.tmdb.org/t/p/w300/",
             hover: false,
             stars: {
                 pos1: "star",
@@ -223,8 +223,12 @@ export default {
             }
         },
         seeCategories(id){
-            var url = "/allmovies/category=" + id + "/year=null"
-            this.$router.push(url);
+            if(this.$props.Type == 'Serie'){
+                this.$router.push('/searchserie/'+ id);
+            }
+            else {
+                this.$router.push('/searchmovie/'+ id);
+            }
         }
     }
 }

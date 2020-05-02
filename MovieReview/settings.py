@@ -25,8 +25,16 @@ SECRET_KEY = 'k_vw%n8+kty8!6apr#deud9ej%^z*(xrj9@3)(#f3bc(2^^frc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:8080',
+]
 
 # Application definition
 
@@ -38,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'appuser',
-    'rest_framework'
+    'rest_framework',
+    'passlib',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'MovieReview.urls'
@@ -56,9 +68,7 @@ ROOT_URLCONF = 'MovieReview.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            "{}/template".format(BASE_DIR, 'Front/dist')
-            ],
+        'DIRS': ["{}/template".format(BASE_DIR, 'Front/dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +90,7 @@ WSGI_APPLICATION = 'MovieReview.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'moviereview5',
+        'NAME': 'moviereview10',
         'USER': 'postgres',
         'PASSWORD': '1234',
         'HOST': 'localhost',
@@ -126,4 +136,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-

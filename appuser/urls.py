@@ -1,17 +1,15 @@
-from rest_framework import routers
-#from .views import UserViewSet, MovieViewSet, SerieViewSet, CommentViewSet
-from django.urls import path, include
+from django.urls import path
 from . import views
 
-
-
 urlpatterns = [
-    
-    path('user_signup/',views.user_signup),
-    path('login/',views.login),
-    path('admin_signup/',views.admin_signup),
-    path('update_password/',views.update),
-    path('update_status/',views.update_status),
-    path('comment/movie/',views.movie_comment),
-    path('comment/serie/',views.serie_comment),
- ]
+    path('user/signup/',views.signupuser),
+    path('user/signin/',views.signinuser),
+    #path('admin/signup/',views.signupadmin),
+    #path('admin/signin/',views.signinadmin),
+    path('update/password/',views.updatepassword),
+    #path('update/status/',views.updatestatus),
+    path('comment/movie/',views.moviecomment),
+    path('comment/serie/',views.seriecomment),
+    path('user/fav/movies',views.updatefavmovie),
+    path('user/fav/series',views.updatefavserie),
+]

@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <div class="container-info-serie info-serie">  
-      <SerieComponent v-bind:Id="IdSerie" Type="Serie"/>
-    </div>
+  <div class="serie">
+    <SerieComponent v-bind:Id="IdSerie" Type="Serie"/>
 
+    <!--
     <div>
       <b-container class="container-info-serie">
         <b-row class="justify-content-center">
@@ -18,10 +17,9 @@
         </b-row>
       </b-container>  
     </div>
-
-    <div>
-      <Comments />
-    </div>
+    -->
+    
+    <Comments />
   </div>
 </template>
 
@@ -43,6 +41,8 @@ export default {
     Comments
   },
   created() {
+    
+    this.$store.commit('updateWindow', 'dark')
     this.IdSerie = this.$route.params.id;
 
     let vue = this;
@@ -60,11 +60,7 @@ export default {
 </script>
 
 <style>
-.info-serie{
-  background: #dc3545; 
-}
-
-.container-info-serie{
-  margin-top: 40px;
+.serie{
+  margin-top: 10vh;
 }
 </style>

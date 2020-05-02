@@ -1,113 +1,150 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import User, Movie, Admin, Serie, CommentSerie, CommentMovie
-from .serializers import UserSerializer,  MovieSerializer, AdminSerializer, CommentSerieSerializer, CommentMovieSerializer
-from django.http import HttpResponse
-from django.shortcuts import render
+from .models import User, Admin, Movie, Serie, CommentMovie, CommentSerie, FavoriteMovie, FavoriteSerie
+from .serializers import UserSerializer, AdminSerializer, MovieSerializer, SerieSerializer, CommentMovieSerializer, CommentSerieSerializer, FavMovieSerializer, FavSerieSerializer
 from passlib.hash import pbkdf2_sha256
 
+
 @api_view(['POST']) 
-def user_signup(request):
+def signupuser(request):
 
     if request.method == 'POST':
-        
         try:
             user = User.objects.get(email=request.data["email"])
 
         except User.DoesNotExist:
-            unhashpass=request.data["password"]
-            hashpass=pbkdf2_sha256.using(rounds=1000,salt_size=20).hash(unhashpass)
-            newUser = User(email=request.data["email"], nickname=request.data["nickname"], password=hashpass,state=1,typeuser=0)
+            encryptpassword=pbkdf2_sha256.using(rounds=1000,salt_size=20).hash(request.data["password"])
+            newUser = User(email=request.data["email"], nickname=request.data["nickname"], password=encryptpassword)
             newUser.save()
-            return Response({"Message": "Usuario creado", "User": request.data})
+            return Response({
+                "message": "USER CREATED", 
+                "user": {
+                        "email": request.data["email"],
+                        "nickname": request.data["nickname"]
+                    },
+                "isLogged": True,
+                "tokenId": "Somenthing"})
 
-          
-        return Response({"Message": "El usuario ya existe", "User": request.data})
+        return Response({
+                "message": "USER ALREADY EXISTS", 
+                "user": {},
+                "isLogged": False,
+                "tokenId": "Somenthing"})
 
-@api_view(['POST']) 
-def admin_signup(request):
-
-    
-    if request.method == 'POST':
-        
-        try:
-            user = User.objects.get(email=request.data["email"])
-
-        except User.DoesNotExist:
-            unhashpass=request.data["password"]
-            hashpass=pbkdf2_sha256.using(rounds=1000,salt_size=20).hash(unhashpass)
-            newUser = User(email=request.data["email"], nickname=request.data["nickname"], password=hashpass,state=1,typeuser=1)
-            newUser.save()
-            newAdmin = Admin(emailuser=User.objects.get(email=request.data["email"]),permisoinforme=0,permisousuarios=0)
-            newAdmin.save()
-            return Response({"Message": "Usuario creado", "User": request.data})
-
-          
-        return Response({"Message": "El usuario ya existe", "User": request.data})
-        
 
 @api_view(['POST'])
-def login(request):
+def signinuser(request):
 
     if request.method == 'POST':
-
         try:
             user = User.objects.get(email=request.data["email"])
 
         except User.DoesNotExist:
-            return Response({"Message": "El usuario no existe", "User": request.data})
-        
-        password=request.data["password"]
-        if pbkdf2_sha256.verify(password, user.password):
-            serializer = UserSerializer(user)
-            return Response({"Message": "Usuario encontrado", "User": serializer.data})
-        else:
-            return Response({"Message": "Contraseña incorrecta"})
+            return Response({
+                "message": "USER DOESNT EXISTS", 
+                "user": {},
+                "isLogged": False,
+                "tokenId": "Somenthing"})
+
+        if pbkdf2_sha256.verify(request.data["password"], user.password):
+            return Response({
+                    "message": "USER FOUND", 
+                    "user": {
+                        "email": user.email,
+                        "nickname": user.nickname
+                    },
+                    "isLogged": True,
+                    "tokenId": "Somenthing"})
+
+        else: 
+            return Response({
+                    "message": "PASSWORD INCORRECT", 
+                    "user": {},
+                    "isLogged": False,
+                    "tokenId": "Somenthing"})
+
 
 @api_view(['PUT'])
-def update(request):
+def updatepassword(request):
+
    if request.method == 'PUT':
 
         try:
             user = User.objects.get(email=request.data["email"])
 
         except User.DoesNotExist:
-            return Response({"Message": "El usuario no existe", "User": request.data})
+            return Response({
+                "message": "USER DOESNT EXISTS",
+                "passwordUpdate": False})
         
-        password=request.data["password"]
-        if  pbkdf2_sha256.verify(password, user.password):
-            serializer = UserSerializer(user)
-            newunhashpass=request.data["newpassword"]
-            newhashpass=pbkdf2_sha256.using(rounds=1000,salt_size=20).hash(newunhashpass)
+        
+        if  pbkdf2_sha256.verify(request.data["password"], user.password):
+            newhashpass=pbkdf2_sha256.using(rounds=1000,salt_size=20).hash(request.data["newpassword"])
             user.password=newhashpass
             user.save()
-            return Response({"Message": "Contraseña actualizada", "User": serializer.data})
+            return Response({
+                "message": "USER UPDATE",
+                "passwordUpdate": True})
+
         else:
-            return Response({"Message": "Contraseña incorrecta"})
+            return Response({
+                "message": "PASSWORD INCORRECT",
+                "passwordUpdate": True})
 
 @api_view(['PUT'])
-def update_status(request):
-   if request.method == 'PUT':
+def updatefavmovie(request):
+
+    if request.method == 'PUT':
 
         try:
-            user = User.objects.get(email=request.data["email"])
+            movie = Movie.objects.get(idmovie=request.data["idmovie"])
+            user = User.objects.get(email=request.data["emailuser"])
+
+        except Movie.DoesNotExist:
+            return Response({"Message": "La pelicula no existe", "Movie": request.data})
 
         except User.DoesNotExist:
             return Response({"Message": "El usuario no existe", "User": request.data})
-        
-      
-        if  user.state==1:
-            serializer = UserSerializer(user)
-            user.state=0
-            user.save()
-            return Response({"Message": "Usuario deshabilitado", "User": serializer.data})
-        else:
-            user.state=1
-            user.save()
-            return Response({"Message": "Usuario habilitado"})
+       
+        newFav = FavoriteMovie(idmovie=Movie.objects.get(idmovie=request.data["idmovie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
+        newFav.save()
+       
+        return Response({
+           "message": "La pelicula se ha añadido a tus favoritos"
+        })
+
+    else:
+        return Response({"message": "Hubo un error"})
+
+@api_view(['PUT'])
+def updatefavserie(request):
+
+    if request.method == 'PUT':
+
+        try:
+            serie = Serie.objects.get(idserie=request.data["idserie"])
+            user = User.objects.get(email=request.data["emailuser"])
+
+        except Serie.DoesNotExist:
+            return Response({"Message": "La serie no existe", "Movie": request.data})
+
+        except User.DoesNotExist:
+            return Response({"Message": "El usuario no existe", "User": request.data})
+       
+        newFav = FavoriteSerie(idserie=Serie.objects.get(idserie=request.data["idserie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
+        newFav.save()
+       
+        return Response({
+           "message": "La serie se ha añadido a tus favoritos"
+           })
+
+    else:
+        return Response({"message": "Hubo un error"})
+
+
 
 @api_view(['POST']) 
-def movie_comment(request):
+def moviecomment(request):
     if request.method == 'POST':
     
         try:
@@ -127,8 +164,9 @@ def movie_comment(request):
     else:
         return Response({"Message": "Hubo un error", "User": request.data})
 
+
 @api_view(['POST']) 
-def serie_comment(request):
+def seriecomment(request):
     if request.method == 'POST':
     
         try:
