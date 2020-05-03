@@ -99,6 +99,7 @@ def updatefavmovie(request):
         try:
             movie = Movie.objects.get(idmovie=request.data["idmovie"])
             user = User.objects.get(email=request.data["emailuser"])
+            favMovie = FavoriteMovie.objects.get(idmovie=Movie.objects.get(idmovie=request.data["idmovie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
 
         except Movie.DoesNotExist:
             return Response({"Message": "La pelicula no existe", "Movie": request.data})
@@ -106,11 +107,14 @@ def updatefavmovie(request):
         except User.DoesNotExist:
             return Response({"Message": "El usuario no existe", "User": request.data})
        
-        newFav = FavoriteMovie(idmovie=Movie.objects.get(idmovie=request.data["idmovie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
-        newFav.save()
-       
+        except FavoriteMovie.DoesNotExist:
+            newFav = FavoriteMovie(idmovie=Movie.objects.get(idmovie=request.data["idmovie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
+            newFav.save()
+            return Response({
+                "message":"La pelicula se ha añadido a tus favoritos"
+            })
         return Response({
-           "message": "La pelicula se ha añadido a tus favoritos"
+            "message":"La pelicula ya está en tus favoritos"
         })
 
     else:
@@ -124,24 +128,82 @@ def updatefavserie(request):
         try:
             serie = Serie.objects.get(idserie=request.data["idserie"])
             user = User.objects.get(email=request.data["emailuser"])
-
+            favSerie = FavoriteSerie.objects.get(idserie=Serie.objects.get(idserie=request.data["idserie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
         except Serie.DoesNotExist:
-            return Response({"Message": "La serie no existe", "Movie": request.data})
+            return Response({"Message": "La serie no existe", "Serie": request.data})
 
         except User.DoesNotExist:
             return Response({"Message": "El usuario no existe", "User": request.data})
-       
-        newFav = FavoriteSerie(idserie=Serie.objects.get(idserie=request.data["idserie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
-        newFav.save()
-       
+        
+        except FavoriteSerie.DoesNotExist:
+            newFav = FavoriteSerie(idserie=Serie.objects.get(idserie=request.data["idserie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
+            newFav.save()
+            return Response({
+                "message":"La serie se ha añadido a tus favoritos"
+            })
         return Response({
-           "message": "La serie se ha añadido a tus favoritos"
-           })
+            "message":"La serie ya está en tus favoritos"
+        })
+
+    else:
+        return Response({"message": "Hubo un error"})
+
+@api_view(['DELETE'])
+def deletefavserie(request):
+
+    if request.method == 'DELETE':
+
+        try:
+            serie = Serie.objects.get(idserie=request.data["idserie"])
+            user = User.objects.get(email=request.data["emailuser"])
+            favSerie = FavoriteSerie.objects.get(idserie=Serie.objects.get(idserie=request.data["idserie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
+        except Serie.DoesNotExist:
+            return Response({"Message": "La serie no existe", "Serie": request.data})
+
+        except User.DoesNotExist:
+            return Response({"Message": "El usuario no existe", "User": request.data})
+        
+        except FavoriteSerie.DoesNotExist:
+            return Response({
+                "message":"La serie no está en tus favoritos"
+            })
+        
+        favSerie.delete()
+        return Response({
+           "message":"La serie se ha eliminado de tus favoritos"
+        })
 
     else:
         return Response({"message": "Hubo un error"})
 
 
+@api_view(['DELETE'])
+def deletefavmovie(request):
+
+    if request.method == 'DELETE':
+
+        try:
+            movie = Movie.objects.get(idmovie=request.data["idmovie"])
+            user = User.objects.get(email=request.data["emailuser"])
+            favmovie = FavoriteMovie.objects.get(idmovie=Movie.objects.get(idmovie=request.data["idmovie"]),emailuser=User.objects.get(email=request.data["emailuser"]))
+        except Movie.DoesNotExist:
+            return Response({"Message": "La pelicula no existe", "Movie": request.data})
+
+        except User.DoesNotExist:
+            return Response({"Message": "El usuario no existe", "User": request.data})
+        
+        except FavoriteMovie.DoesNotExist:
+            return Response({
+                "message":"La pelicula no está en tus favoritos"
+            })
+        
+        favmovie.delete()
+        return Response({
+           "message":"La pelicula se ha eliminado de tus favoritos"
+        })
+
+    else:
+        return Response({"message": "Hubo un error"})
 
 @api_view(['POST']) 
 def moviecomment(request):

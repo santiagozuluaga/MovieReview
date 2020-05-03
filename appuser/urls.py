@@ -12,4 +12,6 @@ urlpatterns = [
     path('comment/serie/',views.seriecomment),
     path('user/fav/movies',views.updatefavmovie),
     path('user/fav/series',views.updatefavserie),
+    path('user/fav/series/delete',views.deletefavserie),
+     path('user/fav/movies/delete',views.deletefavmovie),
 ]
