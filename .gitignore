@@ -3,3 +3,5 @@
 /dist
 /server
 /env
+/HEROKU_BACKEND
+/HEROKU_FRONTEND
